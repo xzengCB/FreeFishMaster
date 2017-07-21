@@ -74,7 +74,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'FreeFishMaster.wsgi.application'
 
 CRONJOBS = [
-    ('* * * * *', 'Subscription.cron.handleSubscriptions')
+    ('*/5 * * * *', 'Subscription.cron.handleSubscriptions')
 ]
 
 
