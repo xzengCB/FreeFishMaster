@@ -3,6 +3,8 @@ import urllib2
 import re
 
 def urlBuilder(priceLow, priceHigh, keywords):
+    keywords = re.sub(r'\s+', '+', keywords)
+    print keywords
     return 'https://s.2.taobao.com/list/list.htm?q={0}&start={1}&end={2}&search_type=item&app=shopsearch'.format(keywords, int(priceLow), int(priceHigh))
 
 def getItems(keywords, priceLow, priceHigh):
@@ -14,7 +16,7 @@ def getItems(keywords, priceLow, priceHigh):
     return (total, [parseItem(item) for item in items])
     
 def parseItem(item):
-    imgLink = item.select_one('.item-pic img')['src']
+    imgLink = item.select_one('.item-pic img')['data-ks-lazyload-custom']
     price = item.select_one('.item-price em').string
     description = item.select_one('.item-brief-desc').string
     title = item.select_one('.item-pic a')['title']
