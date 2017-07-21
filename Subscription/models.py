@@ -4,11 +4,12 @@ from django.db import models
 
 # Create your models here.
 class Item(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    price = models.FloatField()
-    link = models.CharField(max_length=512)
-    imgLink = models.CharField(max_length=512)
+    title = models.CharField(max_length=200, blank=True)
+    taobaoId = models.BigIntegerField(unique=True, db_index=True, blank=True)
+    description = models.TextField(blank=True)
+    price = models.FloatField(null=True)
+    link = models.CharField(max_length=512, blank=True)
+    imgLink = models.CharField(max_length=512, blank=True)
     modifiedDT = models.DateTimeField(auto_now_add=True)
     createdDT = models.DateTimeField(auto_now_add=True)
 
@@ -21,6 +22,7 @@ class Subscription(models.Model):
 
 class Analysis(models.Model):
     subscriptionID = models.ForeignKey(Subscription, on_delete=models.CASCADE)
+    totalNum = models.IntegerField()
     createdDT = models.DateTimeField(auto_now_add=True)
     modifiedDT = models.DateTimeField(auto_now_add=True)
 
