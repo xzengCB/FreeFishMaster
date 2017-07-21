@@ -7,6 +7,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .crawler import getItems
 import threading
+import msgSender
 
 # Create your views here.
 
@@ -17,6 +18,14 @@ def index(request, subID=''):
     if subID != '':
         return deleteSubscriptionResponse(int(subID))
     return getSubscriptionResponse(request)
+
+def analysis(request, analysisId=''):
+    analysisId = int(analysisId)
+    print analysisId
+    analysis = Analysis.objects.get(id=analysisId)
+    results = AnalysisItem.objects.filter(analysisID=analysis)
+    data = serializers.serialize('json', results)
+    return HttpResponse(data, content_type='application/json')
 
 def deleteSubscriptionResponse(subID):
     try:
@@ -48,11 +57,13 @@ def postSubscriptionResponse(request):
 def crawlItems(subId, keywords, priceLow, priceHigh):
     totalNum, items = getItems(keywords, priceLow, priceHigh)
     analysis = createAnalysis(subId, totalNum)
+    if len(items) > 0:
+        msgSender.sendMsg(analysis.id)
     for item in items:
-        saveCrawlItem(item)
+        saveCrawlItem(item, analysis.id)
 
 
-def saveCrawlItem(item):
+def saveCrawlItem(item, analysisId):
     if not Item.objects.filter(taobaoId=int(item['taobaoId'])):
         resultItem = Item.objects.create(
             title = item['title'].encode('utf-8'),
@@ -63,6 +74,15 @@ def saveCrawlItem(item):
             taobaoId = int(item['taobaoId'])
         )
         resultItem.save()
+        saveAnalysisItem(analysisId, resultItem.id)
+
+def saveAnalysisItem(analysisId, itemId):
+    analysisItem = AnalysisItem.objects.create(
+        analysisID = Analysis.objects.get(id=analysisId),
+        itemID = Item.objects.get(id=itemId)
+    )
+    analysisItem.save()
+    return analysisItem
 
 def createAnalysis(subId, totalNum):
     subscription = Subscription.objects.get(id=subId)

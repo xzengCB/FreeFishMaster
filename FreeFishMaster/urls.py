@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from Subscription import analysisViews
 
 urlpatterns = [
     url(r'^api/subscriptions', include('Subscription.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^api/analysis/(?P<analysisId>[0-9]{1,11})$', analysisViews.analysis, name='analysis'),
 ]
