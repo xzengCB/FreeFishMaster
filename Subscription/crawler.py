@@ -13,7 +13,20 @@ def getItems(keywords, priceLow, priceHigh):
     soup = BeautifulSoup(webStream.read(), 'html.parser')
     total = int(soup.select_one('.item-num em').string)
     items = soup.select('.item-block')
+    nextPage = soup.select_one('.paginator-next')
+    pageCrawled = 1
+    if nextPage:
+        crawPage('https:' + nextPage['href'], items, pageCrawled)
     return (total, [parseItem(item) for item in items])
+
+def crawPage(crawlUrl, items, pageCrawled):
+    webStream = urllib2.urlopen(crawlUrl)
+    soup = BeautifulSoup(webStream.read(), 'html.parser')
+    newItems = soup.select('.item-block')
+    items += newItems
+    nextPage = soup.select_one('.paginator-next')
+    if nextPage and pageCrawled < 11:
+        crawPage('https:' + nextPage['href'], items, pageCrawled + 1)
     
 def parseItem(item):
     imgLink = item.select_one('.item-pic img')['data-ks-lazyload-custom']
