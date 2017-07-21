@@ -33,6 +33,7 @@ APPEND_SLASH = False
 
 INSTALLED_APPS = [
     'Subscription.apps.SubscriptionConfig',
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,6 +72,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'FreeFishMaster.wsgi.application'
+
+CRONJOBS = [
+    ('* * * * *', 'Subscription.cron.handleSubscriptions')
+]
 
 
 # Database
