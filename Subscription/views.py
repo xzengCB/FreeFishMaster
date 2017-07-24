@@ -49,7 +49,7 @@ def postSubscriptionResponse(request):
             priceHigh = float(data['priceHigh'])
         )
         subscription.save()
-        thread = threading.Thread(target=crawlItems, args=(subscription.id, data['keywords'], data['priceLow'], data['priceHigh']))
+        thread = threading.Thread(target=crawlItems, args=(subscription.id, data['keywords'].encode('gbk'), data['priceLow'], data['priceHigh']))
         thread.start()
         return HttpResponse('success')
     except:
