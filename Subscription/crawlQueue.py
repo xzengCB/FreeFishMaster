@@ -18,11 +18,11 @@ def saveCrawlItem(item, analysisId):
     if not Item.objects.filter(taobaoId=int(item['taobaoId'])):
         flag = True
         resultItem = Item.objects.create(
-            title = item['title'].encode('utf-8'),
-            description = item['description'].encode('utf-8'),
+            title = item['title'],
+            description = item['description'],
             price = item['price'],
-            link = item['link'].encode('utf-8'),
-            imgLink = item['imgLink'].encode('utf-8'),
+            link = item['link'],
+            imgLink = item['imgLink'],
             taobaoId = int(item['taobaoId'])
         )
         resultItem.isBuying = judgeIsBuying(resultItem.title, resultItem.description)

@@ -11,7 +11,7 @@ def sendMsg(analysisId):
     payload = {
     'To': '+8615800599746',
     'From': '+12566678498',
-    'Body': '发自【闲鱼Pro】\n 物品: {1} \n 价格: {2} - {3} \n 点击 {0} 查看详情'.format(resultUrl, sub.keywords.encode('utf-8'), sub.priceLow, sub.priceHigh)
+    'Body': '发自【闲鱼Pro】\n 物品: {1} \n 价格: {2} - {3} \n 点击 {0} 查看详情'.format(resultUrl, sub.keywords, sub.priceLow, sub.priceHigh)
     }
 
     res = requests.post(endpoint, data=payload)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.http import HttpResponse
 from .models import Subscription, Item, Analysis, AnalysisItem
 from django.core import serializers
