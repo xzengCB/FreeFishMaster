@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from Subscription import analysisViews
+from Subscription import analysisViews, subscriptionViews
 
 urlpatterns = [
     url(r'^api/subscriptions', include('Subscription.urls')),
+    url(r'^api/subscription/(?P<subscriptionId>[0-9]{1,11})$', subscriptionViews.subscription, name='subscription'),
     url(r'^admin/', admin.site.urls),
+    url(r'^api/analysisItems/(?P<analysisId>[0-9]{1,11})$', analysisViews.analysisItems, name='analysisItems'),
     url(r'^api/analysis/(?P<analysisId>[0-9]{1,11})$', analysisViews.analysis, name='analysis'),
 ]
