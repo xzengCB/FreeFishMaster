@@ -22,7 +22,6 @@ def index(request, subID=''):
 
 def analysis(request, analysisId=''):
     analysisId = int(analysisId)
-    print analysisId
     analysis = Analysis.objects.get(id=analysisId)
     results = AnalysisItem.objects.filter(analysisID=analysis)
     data = serializers.serialize('json', results)
