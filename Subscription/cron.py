@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 import datetime
 from .models import Subscription
 from .crawlQueue import crawlItems
+
 def handleSubscriptions():
     subs = Subscription.objects.all()
     for sub in subs:

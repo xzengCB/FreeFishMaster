@@ -37,10 +37,10 @@ def parseItem(item):
     link = item.select_one('.item-pic a')['href']
     taobaoId = re.search(r'id=(\d+)', link).group(1)
     result = {}
-    result['imgLink'] = imgLink
+    result['imgLink'] = imgLink if imgLink else ''
     result['price'] = float(price)
-    result['title'] = title
-    result['link'] = link
-    result['description'] = description
+    result['title'] = title if title else ''
+    result['link'] = link if link else ''
+    result['description'] = description if description else ''
     result['taobaoId'] = taobaoId
     return result

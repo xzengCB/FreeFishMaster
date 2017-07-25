@@ -7,6 +7,6 @@ def analysis(request, analysisId=''):
     print analysisId
     analysis = Analysis.objects.get(id=analysisId)
     results = AnalysisItem.objects.filter(analysisID=analysis)
-    items = [result.itemID for result in results]
+    items = [result.itemID for result in results if not result.itemID.isBuying]
     data = serializers.serialize('json', items)
     return HttpResponse(data, content_type='application/json')

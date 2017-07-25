@@ -10,6 +10,7 @@ class Item(models.Model):
     price = models.FloatField(null=True)
     link = models.CharField(max_length=512, blank=True)
     imgLink = models.CharField(max_length=512, blank=True)
+    isBuying = models.BooleanField(default=False)
     modifiedDT = models.DateTimeField(auto_now_add=True)
     createdDT = models.DateTimeField(auto_now_add=True)
 
