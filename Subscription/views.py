@@ -35,7 +35,7 @@ def deleteSubscriptionResponse(subID):
         return HttpResponse(status=503)
 
 def getSubscriptionResponse(request):
-    subscription_list = Subscription.objects.order_by('-createdDT')[:5]
+    subscription_list = Subscription.objects.order_by('-createdDT')
     data = serializers.serialize('json', subscription_list)
     return HttpResponse(data, content_type='application/json')
 
