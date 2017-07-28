@@ -20,6 +20,7 @@ class Subscription(models.Model):
     priceLow = models.FloatField(default=0)
     priceHigh = models.FloatField()
     recentAnalysisID = models.IntegerField(default=0)
+    recentNotificationDT = models.DateTimeField(auto_now_add=True, null=True)
     createdDT = models.DateTimeField(auto_now_add=True)
     modifiedDT = models.DateTimeField(auto_now_add=True)
 

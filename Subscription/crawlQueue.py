@@ -13,6 +13,7 @@ def crawlItems(subId, keywords, priceLow, priceHigh):
     if flag:
         sub = Subscription.objects.get(id=subId)
         sub.recentAnalysisID = analysis.id
+        sub.recentNotificationDT = analysis.createdDT
         sub.save()
         msgSender.sendMsg(analysis.id)
 
