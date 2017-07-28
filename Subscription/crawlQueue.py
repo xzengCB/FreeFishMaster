@@ -11,6 +11,9 @@ def crawlItems(subId, keywords, priceLow, priceHigh):
         if saveCrawlItem(item, analysis.id) and not judgeIsBuying(item['title'], item['description']):
             flag = True
     if flag:
+        sub = Subscription.objects.get(id=subId)
+        sub.recentAnalysisID = analysis.id
+        sub.save()
         msgSender.sendMsg(analysis.id)
 
 def saveCrawlItem(item, analysisId):

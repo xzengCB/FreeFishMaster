@@ -19,6 +19,7 @@ class Subscription(models.Model):
     keywords = models.CharField(max_length=200)
     priceLow = models.FloatField(default=0)
     priceHigh = models.FloatField()
+    recentAnalysisID = models.IntegerField(default=0)
     createdDT = models.DateTimeField(auto_now_add=True)
     modifiedDT = models.DateTimeField(auto_now_add=True)
 
