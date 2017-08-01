@@ -35,4 +35,3 @@ class AnalysisItem(models.Model):
     itemID = models.ForeignKey(Item)
     createdDT = models.DateTimeField(auto_now_add=True)
     modifiedDT = models.DateTimeField(auto_now_add=True)
-
